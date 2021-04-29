@@ -13,6 +13,7 @@ import com.facebook.react.bridge.Promise;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.review.testing.FakeReviewManager;
 import com.google.android.play.core.tasks.Task;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -40,7 +41,7 @@ public class AppReviewModule extends ReactContextBaseJavaModule {
         this.pendingPromise = promise;
         if(Build.VERSION.SDK_INT >= 21) {
             if (isGooglePlayServicesAvailable()) {
-                ReviewManager manager = ReviewManagerFactory.create(mContext);
+                ReviewManager manager = new FakeReviewManager(mContext);
                 Task<ReviewInfo> request = manager.requestReviewFlow();
                 Log.e("isGooglePlaySerAvail.", isGooglePlayServicesAvailable() + "");
 
